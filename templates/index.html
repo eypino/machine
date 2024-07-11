@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Muertes en Partida</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cyborg/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #2a2a2a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #3a3a3a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+        h2, p {
+            color: #fff;
+        }
+        .form-group label {
+            color: #ccc;
+        }
+        .form-group input, .form-group select {
+            background-color: #555;
+            color: #fff;
+            border: 1px solid #666;
+        }
+        .form-group input::placeholder {
+            color: #aaa;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .prediction {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #007bff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Predicción de Muertes en Partida</h2>
+        <p>Este formulario utiliza un modelo de predicción con un 75% de precisión para estimar las muertes en una partida de Counter-Strike: Global Offensive. El modelo fue desarrollado utilizando técnicas de machine learning y se entrenó con datos de partidas reales.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/predict" method="post">
+                            <div class="form-group">
+                                <label for="RoundStartingEquipmentValue">Valor de Equipo al Inicio de la Ronda</label>
+                                <input type="text" class="form-control" name="RoundStartingEquipmentValue" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="MatchHeadshots">Disparos a la Cabeza en la Partida</label>
+                                <input type="text" class="form-control" name="MatchHeadshots" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="MatchAssists">Asistencias en la Partida</label>
+                                <input type="text" class="form-control" name="MatchAssists" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="PrimaryAssaultRifle">Rifle de Asalto Primario</label>
+                                <select name="PrimaryAssaultRifle" class="form-control" required>
+                                    <option value="1">Sí</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="TeamStartingEquipmentValue">Valor del Equipo al Inicio</label>
+                                <input type="text" class="form-control" name="TeamStartingEquipmentValue" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Predecir</button>
+                        </form>
+                        {% if prediction_text %}
+                            <div class="alert alert-info prediction">{{ prediction_text }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
